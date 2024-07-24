@@ -9,6 +9,8 @@ import MovieList from './MovieList';
 import WatchedSummary from './WatchedSummary';
 import WatchedMovieList from './WatchedMovieList';
 
+import StarRating from '../utils/StarRating';
+
 import { tempWatchedData } from '../data/tempWatchedData';
 import { tempMovieData } from '../data/tempMovieData';
 
@@ -31,6 +33,9 @@ export default function App() {
                     <WatchedMovieList watched={watched} />
                 </MoviesBox>
             </Main>
+            <StarRating maxRating={5} />
+            <StarRating maxRating={10} />
+            <StarRating />
         </>
     );
 }
