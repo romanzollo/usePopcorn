@@ -33,9 +33,7 @@ export default function App() {
                     <WatchedMovieList watched={watched} />
                 </MoviesBox>
             </Main>
-            <StarRating maxRating={5} />
             <StarRating maxRating={10} />
-            <StarRating />
         </>
     );
 }
