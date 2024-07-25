@@ -14,6 +14,21 @@ import StarRating from '../utils/StarRating';
 import { tempWatchedData } from '../data/tempWatchedData';
 import { tempMovieData } from '../data/tempMovieData';
 
+function Test() {
+    const [movieRating, setMovieRating] = useState(0);
+
+    return (
+        <div>
+            <StarRating
+                color="#ff7f50"
+                maxRating={10}
+                onSetRating={setMovieRating}
+            />
+            <p>This movie was rated {movieRating} stars</p>
+        </div>
+    );
+}
+
 export default function App() {
     const [movies, setMovies] = useState(tempMovieData);
     const [watched, setWatched] = useState(tempWatchedData);
@@ -33,7 +48,19 @@ export default function App() {
                     <WatchedMovieList watched={watched} />
                 </MoviesBox>
             </Main>
-            <StarRating maxRating={10} />
+            <StarRating
+                maxRating={5}
+                messages={['Terrable', 'Bad', 'Okay', 'Good', 'Amazing']}
+            />
+            <StarRating
+                maxRating={5}
+                size={24}
+                color="red"
+                className="test"
+                defaultRating={3}
+            />
+
+            <Test />
         </>
     );
 }
