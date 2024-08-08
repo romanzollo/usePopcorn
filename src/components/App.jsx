@@ -14,26 +14,26 @@ import ErrorMessage from './ErrorMessage';
 // import { tempWatchedData } from '../data/tempWatchedData';
 // import { tempMovieData } from '../data/tempMovieData';
 
-const KEY = '9bc3165a';
+const KEY_API = '9bc3165a';
 
 export default function App() {
     const [movies, setMovies] = useState([]);
     const [watched, setWatched] = useState([]);
-
+    // отслеживаем состояние поиска
+    const [query, setQuery] = useState('');
     // отслеживаем состояние загрузки
     const [isLoading, setIsLoading] = useState(false);
     // отслеживаем ошибки при запросе на API
     const [error, setError] = useState('');
 
-    const query = 'aaaewwewew';
-
     useEffect(() => {
         async function fetchMovies() {
             try {
                 setIsLoading(true);
+                setError('');
 
                 const res = await fetch(
-                    `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+                    `http://www.omdbapi.com/?apikey=${KEY_API}&s=${query}`
                 );
 
                 // если что-то пошло не так
@@ -50,18 +50,28 @@ export default function App() {
                 setMovies(data.Search);
             } catch (error) {
                 console.log(error.message);
+
                 setError(error.message);
+                // setMovies([]);
             } finally {
                 setIsLoading(false);
             }
         }
+
+        // если запрос пустой или длина запроса меньше 3 - ничего не делаем
+        if (query.length < 3) {
+            setMovies([]);
+            setError('');
+            return;
+        }
+
         fetchMovies();
-    }, []);
+    }, [query]);
 
     return (
         <>
             <NavBar movies={movies}>
-                <Search />
+                <Search query={query} setQuery={setQuery} />
                 <NumResults movies={movies} />
             </NavBar>
             <Main>
