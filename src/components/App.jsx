@@ -106,6 +106,7 @@ export default function App() {
                         <MovieDetails
                             selectedId={selectedId}
                             onCloseMovie={handleCloseMovie}
+                            KEY_API={KEY_API}
                         />
                     ) : (
                         <>
