@@ -19,6 +19,7 @@ const KEY_API = '9bc3165a';
 
 export default function App() {
     const [movies, setMovies] = useState([]);
+    // массив просмотренных фильмов
     const [watched, setWatched] = useState([]);
     // отслеживаем состояние поиска
     const [query, setQuery] = useState('');
@@ -37,6 +38,15 @@ export default function App() {
     // функция обработки закрытия фильма
     function handleCloseMovie() {
         setSelectedId(null);
+    }
+
+    // функция добавления фильма в список просмотренных
+    function handleAddToWatched(movie) {
+        setWatched((watched) => [...watched, movie]);
+    }
+
+    function handleDeleteWatched(id) {
+        setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
     }
 
     useEffect(() => {
@@ -106,12 +116,17 @@ export default function App() {
                         <MovieDetails
                             selectedId={selectedId}
                             onCloseMovie={handleCloseMovie}
+                            onAddWatched={handleAddToWatched}
                             KEY_API={KEY_API}
+                            watched={watched}
                         />
                     ) : (
                         <>
                             <WatchedSummary watched={watched} />
-                            <WatchedMovieList watched={watched} />
+                            <WatchedMovieList
+                                watched={watched}
+                                onDeleteWatched={handleDeleteWatched}
+                            />
                         </>
                     )}
                 </MoviesBox>
