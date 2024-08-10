@@ -46,7 +46,7 @@ function MovieDetails({
             year,
             poster,
             imdbRating: Number(imdbRating),
-            runtime: Number(runtime.split(' ')[0]),
+            runtime: Number(runtime.split(' ')[0]), // убираем 'min' и превращаем в число
             userRating, // пользовательский рейтинг
         };
 
@@ -86,7 +86,24 @@ function MovieDetails({
             }
         }
         getMovieDetails();
-    }, [selectedId]);
+    }, [selectedId, KEY_API]);
+
+    // эффект изменения title страницы при выборе фильма
+    useEffect(() => {
+        if (!title) return;
+
+        document.title = `Movie | ${title}`;
+
+        // очищаем title при размонтировании компонента
+        return () => {
+            document.title = 'usePopcorn';
+            // console.log(`Clean up effect for movie ${title}`);
+            // пример замыкания, clean up функция эффекта выполняется
+            // после размонтирования компонента но переменная title
+            // будет хранить значение выбранного фильма из за замыкания
+            // ("Замыкание" - это способность функции запоминать переменные, которые были определены внутри родительской функции, даже после того, как родительская функция была выполнена)
+        };
+    }, [title]);
 
     return (
         <div className="details">
@@ -121,6 +138,9 @@ function MovieDetails({
                                         onSetRating={setUserRating}
                                     />
 
+                                    {/* пока пользователь не поставил рейтинг
+                                        не показываем кнопку "Add to list"
+                                    */}
                                     {userRating > 0 && (
                                         <button
                                             className="btn-add"
