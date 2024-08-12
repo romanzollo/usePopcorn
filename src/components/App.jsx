@@ -50,13 +50,20 @@ export default function App() {
     }
 
     useEffect(() => {
+        // создаем AbortController для отмены запроса (которые могут занять много времени) при демонтировании компонента
+        // избавляемся от 'race condition'
+        const controller = new AbortController();
+
         async function fetchMovies() {
             try {
                 setIsLoading(true);
                 setError('');
 
                 const res = await fetch(
-                    `http://www.omdbapi.com/?apikey=${KEY_API}&s=${query}`
+                    `http://www.omdbapi.com/?apikey=${KEY_API}&s=${query}`,
+                    {
+                        signal: controller.signal, // соединяем сигнал с AbortController
+                    }
                 );
 
                 // если что-то пошло не так
@@ -71,10 +78,18 @@ export default function App() {
 
                 // до этого участка кода дойдет только если нет ошибок и фильм найден
                 setMovies(data.Search);
+
+                // так же очищаем ошибку вконце запроса так как используем AbortController
+                setError('');
             } catch (error) {
                 console.log(error.message);
 
-                setError(error.message);
+                // выкидываем ошибку только если запрос был отменен не через AbortController
+                // игнорируем ошибки при отмене запроса через AbortController
+                if (error.name !== 'AbortError') {
+                    setError(error.message);
+                }
+
                 // setMovies([]);
             } finally {
                 setIsLoading(false);
@@ -89,6 +104,9 @@ export default function App() {
         }
 
         fetchMovies();
+
+        // отменяем запрос при демонтировании компонента
+        return () => controller.abort();
     }, [query]);
 
     return (
