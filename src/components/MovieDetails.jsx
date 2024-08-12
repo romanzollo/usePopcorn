@@ -105,6 +105,22 @@ function MovieDetails({
         };
     }, [title]);
 
+    // эффект закрытия окна информации о фильме при нажатии на Escape
+    useEffect(() => {
+        // создаем функцию обратного вызова
+        const callback = (e) => {
+            if (e.code === 'Escape') {
+                onCloseMovie();
+            }
+        };
+
+        document.addEventListener('keydown', callback); // добавляем обработчик события при размонтировании компонента
+
+        return () => {
+            document.removeEventListener('keydown', callback); // удаляем обработчик события
+        };
+    }, [onCloseMovie]);
+
     return (
         <div className="details">
             {isLoading && <Loader />}

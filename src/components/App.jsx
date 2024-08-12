@@ -82,11 +82,10 @@ export default function App() {
                 // так же очищаем ошибку вконце запроса так как используем AbortController
                 setError('');
             } catch (error) {
-                console.log(error.message);
-
                 // выкидываем ошибку только если запрос был отменен не через AbortController
                 // игнорируем ошибки при отмене запроса через AbortController
                 if (error.name !== 'AbortError') {
+                    console.log(error.message);
                     setError(error.message);
                 }
 
@@ -102,6 +101,9 @@ export default function App() {
             setError('');
             return;
         }
+
+        // закрываем окно с выбранным фильмом если вводим новый запрос
+        handleCloseMovie();
 
         fetchMovies();
 
