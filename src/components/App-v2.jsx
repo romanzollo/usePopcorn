@@ -20,11 +20,7 @@ const KEY_API = '9bc3165a';
 export default function App() {
     const [movies, setMovies] = useState([]);
     // массив просмотренных фильмов
-    // const [watched, setWatched] = useState([]);
-    const [watched, setWatched] = useState(() => {
-        const storedValue = localStorage.getItem('watched');
-        return JSON.parse(storedValue);
-    });
+    const [watched, setWatched] = useState([]);
     // отслеживаем состояние поиска
     const [query, setQuery] = useState('');
     // отслеживаем состояние загрузки
@@ -47,24 +43,11 @@ export default function App() {
     // функция добавления фильма в список просмотренных
     function handleAddToWatched(movie) {
         setWatched((watched) => [...watched, movie]);
-
-        // 1й вариант добавления просмотренных фильмов в localStorage
-        // localStorage.setItem('watched', JSON.stringify([...watched, movie]));
     }
 
     function handleDeleteWatched(id) {
         setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
     }
-
-    // предпочтительный вариант добавления просмотренных фильмов в localStorage
-    // так как он будет работать при обновлении страницы
-    // и автоматически обновлять localStorage через useEffect
-    useEffect(() => {
-        // дабавлять просмотренный фильм через создание нового массива
-        // как в функции handleAddToWatched уже не нужно т.к. useEffect будет запущен когда фильмы
-        // уже будут обновлены
-        localStorage.setItem('watched', JSON.stringify(watched));
-    }, [watched]);
 
     useEffect(() => {
         // создаем AbortController для отмены запроса (которые могут занять много времени) при демонтировании компонента
