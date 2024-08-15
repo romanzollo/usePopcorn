@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import StarRating from '../utils/StarRating';
 import Loader from './Loader';
@@ -24,6 +24,18 @@ function MovieDetails({
         (movie) => movie.imdbID === selectedId
     )?.userRating;
 
+    // подсчет количества рейтингов через useRef
+    const countRef = useRef(0);
+
+    // подсчет количества рейтингов через useRef
+    useEffect(
+        function () {
+            if (userRating) countRef.current++;
+            console.log(countRef.current);
+        },
+        [userRating]
+    );
+
     // деструктуризация объекта movie
     const {
         Title: title,
@@ -48,6 +60,7 @@ function MovieDetails({
             imdbRating: Number(imdbRating),
             runtime: Number(runtime.split(' ')[0]), // убираем 'min' и превращаем в число
             userRating, // пользовательский рейтинг
+            countRatingDecisions: countRef.current, // подсчет количества рейтингов через useRef
         };
 
         onAddWatched(newWatchedMovie);
