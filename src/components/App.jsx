@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import NavBar from './NavBar';
 import Main from './Main';
@@ -13,34 +13,20 @@ import ErrorMessage from './ErrorMessage';
 import MovieDetails from './MovieDetails';
 
 import { useMovies } from '../hooks/useMovies';
+import { useLocalStorageState } from '../hooks/useLocalStorageState';
 
 const KEY_API = '9bc3165a';
 
 export default function App() {
-    // массив просмотренных фильмов
-    // const [watched, setWatched] = useState([]);
-    const [watched, setWatched] = useState(() => {
-        const storedValue = localStorage.getItem('watched');
-        return JSON.parse(storedValue);
-    });
     // отслеживаем состояние поиска
     const [query, setQuery] = useState('');
 
     // отслеживаем состояние выбранного фильма
     const [selectedId, setSelectedId] = useState(null);
 
-    // custom hook
+    // custom hooks
     const { movies, isLoading, error } = useMovies(query);
-
-    // предпочтительный вариант добавления просмотренных фильмов в localStorage
-    // так как он будет работать при обновлении страницы
-    // и автоматически обновлять localStorage через useEffect
-    useEffect(() => {
-        // дабавлять просмотренный фильм через создание нового массива
-        // как в функции handleAddToWatched уже не нужно т.к. useEffect будет запущен когда фильмы
-        // уже будут обновлены
-        localStorage.setItem('watched', JSON.stringify(watched));
-    }, [watched]);
+    const [watched, setWatched] = useLocalStorageState([], 'watched');
 
     // функция обработки выбора фильма
     function handleSelectMovie(id) {
