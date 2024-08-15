@@ -19,7 +19,7 @@ export function useLocalStorageState(initialState, key) {
         // дабавлять просмотренный фильм через создание нового массива
         // как в функции handleAddToWatched уже не нужно т.к. useEffect будет запущен когда фильмы
         // уже будут обновлены
-        localStorage.setItem('watched', JSON.stringify(value));
+        localStorage.setItem(key, JSON.stringify(value));
     }, [value, key]);
 
     return [value, setValue];
