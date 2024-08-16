@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import StarRating from '../utils/StarRating';
 import Loader from './Loader';
 import ErrorMessage from './ErrorMessage';
+import ArrowLeft from './ArrowLeft';
 
 // custom hook
 import { useKey } from '../hooks/useKey';
@@ -131,7 +132,7 @@ function MovieDetails({
                 <>
                     <header>
                         <button onClick={onCloseMovie} className="btn-back">
-                            &larr;
+                            <ArrowLeft />
                         </button>
                         <img src={poster} alt={`Poster of ${movie} movie`} />
                         <div className="details-overview">

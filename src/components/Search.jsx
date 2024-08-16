@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 // custom hooks
 import { useKey } from '../hooks/useKey';
@@ -8,7 +8,6 @@ function Search({ query, setQuery }) {
     const inputElem = useRef(null);
 
     // CUSTOM HOOKS
-    // при монтировании компонента устанавливаем фокус на input поиска
     useKey('Enter', () => {
         // если фокус уже на input, то ничего не делаем
         // чтобы не сбрасывать текст поиска который мы уже набрали
@@ -19,6 +18,11 @@ function Search({ query, setQuery }) {
         inputElem.current.focus();
         setQuery('');
     });
+
+    // при монтировании компонента устанавливаем фокус на input поиска
+    useEffect(() => {
+        inputElem.current.focus();
+    }, []);
 
     return (
         <input
