@@ -12,6 +12,7 @@ import Loader from './Loader';
 import ErrorMessage from './ErrorMessage';
 import MovieDetails from './MovieDetails';
 
+// custom hooks
 import { useMovies } from '../hooks/useMovies';
 import { useLocalStorageState } from '../hooks/useLocalStorageState';
 
@@ -24,7 +25,7 @@ export default function App() {
     // отслеживаем состояние выбранного фильма
     const [selectedId, setSelectedId] = useState(null);
 
-    // custom hooks
+    // CUSTOM HOOKS
     const { movies, isLoading, error } = useMovies(query);
     const [watched, setWatched] = useLocalStorageState([], 'watched');
 

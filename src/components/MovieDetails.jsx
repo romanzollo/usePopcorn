@@ -4,6 +4,9 @@ import StarRating from '../utils/StarRating';
 import Loader from './Loader';
 import ErrorMessage from './ErrorMessage';
 
+// custom hook
+import { useKey } from '../hooks/useKey';
+
 function MovieDetails({
     selectedId,
     onCloseMovie,
@@ -27,11 +30,14 @@ function MovieDetails({
     // подсчет количества рейтингов через useRef
     const countRef = useRef(0);
 
+    // custom hooks
+    useKey('Escape', onCloseMovie); // эффект закрытия окна информации о фильме при нажатии на Escape
+
     // подсчет количества рейтингов через useRef
     useEffect(
         function () {
             if (userRating) countRef.current++;
-            console.log(countRef.current);
+            // console.log(countRef.current);
         },
         [userRating]
     );
@@ -117,22 +123,6 @@ function MovieDetails({
             // ("Замыкание" - это способность функции запоминать переменные, которые были определены внутри родительской функции, даже после того, как родительская функция была выполнена)
         };
     }, [title]);
-
-    // эффект закрытия окна информации о фильме при нажатии на Escape
-    useEffect(() => {
-        // создаем функцию обратного вызова
-        const callback = (e) => {
-            if (e.code === 'Escape') {
-                onCloseMovie();
-            }
-        };
-
-        document.addEventListener('keydown', callback); // добавляем обработчик события при размонтировании компонента
-
-        return () => {
-            document.removeEventListener('keydown', callback); // удаляем обработчик события
-        };
-    }, [onCloseMovie]);
 
     return (
         <div className="details">
