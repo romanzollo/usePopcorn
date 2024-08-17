@@ -71,7 +71,7 @@ export default function App() {
                     )}
                     {error && <ErrorMessage message={error} />}
                 </MoviesBox>
-                <MoviesBox>
+                <MoviesBox classNames={'box-details'}>
                     {selectedId ? (
                         <MovieDetails
                             selectedId={selectedId}

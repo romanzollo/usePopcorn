@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-function MoviesBox({ children }) {
+function MoviesBox({ children, classNames = '' }) {
     const [isOpen, setIsOpen] = useState(true);
 
     return (
-        <div className="box">
+        <div className={`box ${classNames}`}>
             <button
                 className="btn-toggle"
                 onClick={() => setIsOpen((open) => !open)}

@@ -335,13 +335,135 @@ body {
     color: var(--color-background-500);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
     font-family: sans-serif;
-    font-size: 2.2rem;
+    font-size: 1.6rem;
     font-weight: bold;
     cursor: pointer;
     z-index: 999;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+@media screen and (max-width: 900px) {
+    .nav-bar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        padding: 1rem 3.2rem;
+    }
+
+    .logo h1 {
+        font-size: 2rem;
+    }
+
+    .search {
+        margin-top: 10px;
+        width: 100%;
+        padding: 0.9rem 1.6rem;
+    }
+
+    .num-results {
+        margin-top: 10px;
+    }
+
+    .rating {
+        padding: 1.5rem 1.5rem;
+        text-align: center;
+    }
+
+    .details section {
+        padding: 3rem;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .box {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .list li {
+        display: flex;
+        flex-direction: column;
+        padding: 1.5rem 1rem;
+    }
+
+    .list li img {
+        width: 70px;
+        margin-bottom: 5px;
+    }
+
+    .list h3 {
+        font-size: 1.5rem;
+    }
+
+    .list div {
+        display: flex;
+        flex-direction: column;
+        margin-top: 5px;
+        gap: 1rem;
+    }
+
+    .btn-delete {
+        top: 5%;
+    }
+
+    .summary {
+        padding: 1rem 1rem 1rem 1rem;
+        text-align: center;
+    }
+
+    .summary div {
+        flex-direction: column;
+        margin-top: 10px;
+        gap: 1rem;
+    }
+
+    .details img {
+        width: 100px;
+        object-fit: cover;
+    }
+
+    .details section {
+        padding: 2rem;
+    }
+
+    .details-overview {
+        padding: 1rem 1.5rem;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .details section {
+        padding: 1rem;
+    }
+
+    .details-overview h2 {
+        font-size: 1.8rem;
+    }
+
+    .rating > div > div {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .details header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .details img {
+        width: 100%;
+    }
+
+    .details-overview {
+        align-items: center;
+        text-align: center;
+    }
 }
 
 /*

@@ -3,7 +3,7 @@ function Movie({ movie, onSelectMovie }) {
         <li onClick={() => onSelectMovie(movie.imdbID)}>
             <img src={movie.Poster} alt={`${movie.Title} poster`} />
             <h3>{movie.Title}</h3>
-            <div>
+            <div className="movie-info">
                 <p>
                     <span>🗓</span>
                     <span>{movie.Year}</span>
